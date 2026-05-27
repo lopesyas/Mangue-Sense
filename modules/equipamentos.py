@@ -37,22 +37,3 @@ def visualizar_equipamentos():
   for chave, valor in dados:
      print(f"{chave}: {valor}")
 
-while True:
-   print("====funções====")
-   print("[1]- cadastrar equipamentos" )
-   print("[2]- visualizar informações dos equipamentos cadastrados")
-   print("[3]- sair ")
-
-   funcao=int(input("escolha um número correspondente a uma função: "))
-
-   if funcao == 1 :
-      cadastro_equipamentos()
-   elif funcao == 2:
-      visualizar_equipamentos()
-   elif funcao ==3:
-      print("você saiu")
-      break
-   else:
-      print("opção inválida")
-
-
