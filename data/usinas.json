@@ -1,11 +1,19 @@
-{
-    "ID da usina": 1,
-    "Nome da usina": "Usina solar recife norte ",
-    "Empresa responsável pela usina": "Solartech",
-    "Cidade da usina": "Recife",
-    "UF da usina": "PE",
-    "Potência da usina (kWp)": 500.0,
-    "Quantidade de painéis": 1200,
-    "Data de instalação": "ativa",
-    "Status da usina": "ATIVA"
-}
+[
+    {
+        "ID da usina": 1,
+        "Nome da usina": "Usina solar recife norte ",
+        "Empresa responsável pela usina": "Solartech",
+        "Cidade da usina": "Recife",
+        "UF da usina": "PE",
+        "Potência da usina (kWp)": 500.0,
+        "Quantidade de painéis": 1200,
+        "Data de instalação": "ativa",
+        "Status da usina": "ATIVA",
+        "id": 1,
+        "nome": "Usina solar recife norte ",
+        "empresa": "Solartech",
+        "cidade": "Recife",
+        "estado": "PE",
+        "potencia": 500.0
+    }
+]
