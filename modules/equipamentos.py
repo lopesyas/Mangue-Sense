@@ -1,90 +1,80 @@
-import json
-import os
-from modules.validacoes import validar_vinculo_usina
 
-# Caminho para persistência em JSON
-caminho_equipamentos = os.path.join(
-    os.path.dirname(__file__),
-    "..",
-    "data",
-    "equipamentos.json"
-)
 
-equipamentos = {}
+print("==== CADASTRO DE EQUIPAMENTOS ====")
 
-def carregar_equipamentos():
-    global equipamentos
-    if os.path.exists(caminho_equipamentos):
-        try:
-            with open(caminho_equipamentos, "r", encoding="utf-8") as arquivo:
-                dados = json.load(arquivo)
-                if isinstance(dados, dict):
-                    # Como JSON salva chaves como string, convertemos de volta para int
-                    equipamentos = {int(k): v for k, v in dados.items()}
-                else:
-                    equipamentos = {}
-        except Exception as e:
-            print(f"⚠️ Erro ao carregar equipamentos: {e}")
-
-def salvar_equipamentos():
-    try:
-        os.makedirs(os.path.dirname(caminho_equipamentos), exist_ok=True)
-        with open(caminho_equipamentos, "w", encoding="utf-8") as arquivo:
-            json.dump(equipamentos, arquivo, indent=4, ensure_ascii=False)
-    except Exception as e:
-        print(f"⚠️ Erro ao salvar equipamentos: {e}")
-
-# Carrega os equipamentos ao importar o módulo
-carregar_equipamentos()
+equipamentos={}
+usinas={}
 
 def cadastro_equipamentos():
-    print("==== CADASTRO DE EQUIPAMENTOS ====")
-    try:
-        id = int(input("Digite a ID do equipamento: "))
-    except ValueError:
-        print("❌ ID inválido!")
-        return
+   id=int(input("digite a id do equipamento: "))
+   if id in equipamentos:
+      print(" equipamento já cadastrado!")
+      return
 
-    if id in equipamentos:
-        print("❌ Equipamento já cadastrado!")
-        return
+   equipamentos[id]={ 
+      "Nome do equipamento":input("digite o nome do equipamento: "),
+      "tipo do equipamento":input("digite o tipo do equipamento: "),
+      "fabricante":input("digite o fabricante: "),
+      "modelo":input("digite o modelo do equipamento: "),
+      "data":input("digite a data de instalação: "),
+      "status":input("digite o status do equipamento: ")
+   }
+   usina=int(input("digite o id da usina vinculada: "))
+   if usina  not in usinas:
+         print("usina não encontrada!")
+         return   
 
-    try:
-        usina = int(input("Digite o ID da usina vinculada: "))
-    except ValueError:
-        print("❌ ID de usina inválido!")
-        return
+   print("equipamento cadastrado!")
 
-    # Validação obrigatória da usina usando a função do Arthur
-    if not validar_vinculo_usina(usina):
-        return
-
-    equipamentos[id] = { 
-        "Nome do equipamento": input("Digite o nome do equipamento: "),
-        "Tipo do equipamento": input("Digite o tipo do equipamento: "),
-        "Fabricante": input("Digite o fabricante: "),
-        "Modelo": input("Digite o modelo do equipamento: "),
-        "Data": input("Digite a data de instalação: "),
-        "Status": input("Digite o status do equipamento: "),
-        "Usina vinculada": usina
-    }
-    
-    salvar_equipamentos()
-    print("✅ Equipamento cadastrado!")
 
 def visualizar_equipamentos():
-    if not equipamentos:
-        print("⚠️ Nenhum equipamento cadastrado!")
-        return
-    for id, dados in equipamentos.items():
-        print(f"\nID: {id}")
-        for chave, valor in dados.items():
-            print(f"{chave}: {valor}")
+  if not equipamentos:
+    print("nenhum equipamento cadastrado!")
+    return
+  for id , dados in equipamentos.items():
+    print(f"\n ID: {id} ")
 
-def editar_equipamento():
-    print("\n⚠️ Função de edição de equipamento ainda não implementada (Responsável: Arthur).\n")
+  for chave, valor in dados:
+     print(f"{chave}: {valor}")
 
-def excluir_equipamento():
-    print("\n⚠️ Função de exclusão de equipamento ainda não implementada (Responsável: Arthur).\n")
+while True:
+   print("====funções====")
+   print("[1]- cadastrar equipamentos" )
+   print("[2]- visualizar informações dos equipamentos cadastrados")
+   print("[3]- sair ")
+
+   funcao=int(input("escolha um número correspondente a uma função: "))
+
+   if funcao == 1 :
+      cadastro_equipamentos()
+   elif funcao == 2:
+      visualizar_equipamentos()
+   elif funcao ==3:
+      print("você saiu")
+      break
+   else:
+      print("opção inválida")
+
+dados_operacionais=[]
+
+while True:
+
+ id_usina=int(input("digite o ID da usina:  "))
+ dados_operacionais.append(id_usina)
+
+ temp_usina=float(input("digite a temperatura atual: "))
+ dados_operacionais.append(temp_usina)
+
+ gera_usina=float(input("geração: "))
+ dados_operacionais.append(gera_usina)
+ 
+ if gera_usina < 0:
+   
+   print("erro")
+   break
+
+ desenpenho=int(input("desenpenho(0 a 100): "))
+ dados_operacionais.append(desenpenho)
+
 
 
