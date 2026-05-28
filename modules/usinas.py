@@ -110,9 +110,9 @@ def cadastrar_usina():
 
     salvar_usinas = {}
     salvar_usinas["ID da usina"] = id_usina
-    salvar_usinas["Nome da usina"] = input("Nome da usina: ").capitalize()
-    salvar_usinas["Empresa responsável pela usina"] = input("Empresa responsável pela usina: ").capitalize()
-    salvar_usinas["Cidade da usina"] = input("Cidade da usina: ").capitalize()
+    salvar_usinas["Nome da usina"] = input("Nome da usina: ").title()
+    salvar_usinas["Empresa responsável pela usina"] = input("Empresa responsável pela usina: ").title()
+    salvar_usinas["Cidade da usina"] = input("Cidade da usina: ").title()
     salvar_usinas["UF da usina"] = input("UF da usina: ").upper().strip()
     
     try:
@@ -141,6 +141,17 @@ def cadastrar_usina():
     # Adiciona à lista global e salva no arquivo JSON
     usinas.append(salvar_usinas)
     salvar_usinas_json(usinas)
+
+    print("=========== CADASTRO DA USINA =========== ")
+    print(salvar_usinas["ID da usina"])
+    print(salvar_usinas["Nome da usina"])
+    print(salvar_usinas["Empresa responsável pela usina"])
+    print(salvar_usinas["Cidade da usina"])
+    print(salvar_usinas["UF da usina"])
+    print(f"{salvar_usinas['Potência da usina (kWp)']}")
+    print(salvar_usinas["Quantidade de painéis"])
+    print(salvar_usinas["Data de instalação"])
+    print(salvar_usinas["Status da usina"])
 
     print("✅ Usina cadastrada com sucesso!")
     return salvar_usinas 
@@ -176,7 +187,7 @@ def editar_usina():
             usina["estado"] = input("Novo estado: ")
             
             try:
-                usina["potencia"] = int(input("Nova potência: "))
+                usina["potencia"] = float(input("Nova potência: "))
             except ValueError:
                 print("❌ Potência inválida! Mantendo o valor anterior.")
 
@@ -220,4 +231,7 @@ def excluir_usina():
         print("❌ Nenhuma usina encontrada com esse ID.")
     else:
         print("Exclusão cancelada.")
+
+
+listar_usinas()
 
