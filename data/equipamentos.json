@@ -1,0 +1,13 @@
+[
+    {
+        "id": 1,
+        "nome": "placasolar",
+        "tipo": "r23",
+        "fabricante": "ekdr",
+        "modelo": "sfd,el",
+        "data": "12/07/2026",
+        "status": "RDNUNF",
+        "id_usina": 1,
+        "nome_usina": "Usina solar recife norte "
+    }
+]

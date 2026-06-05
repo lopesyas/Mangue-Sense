@@ -1,81 +1,190 @@
 
 
-print("==== CADASTRO DE EQUIPAMENTOS ====")
+import json
+import os
 
-equipamentos={}
-usinas={}
 
-def cadastro_equipamentos():
-   id=int(input("digite a id do equipamento: "))
-   if id in equipamentos:
-      print(" equipamento já cadastrado!")
-      return
+caminho_equipamentos = os.path.join(os.path.dirname(__file__), "..", "data", "equipamentos.json")
+caminho_usinas       = os.path.join(os.path.dirname(__file__), "..", "data", "usinas.json")
 
-   equipamentos[id]={ 
-      "Nome do equipamento":input("digite o nome do equipamento: "),
-      "tipo do equipamento":input("digite o tipo do equipamento: "),
-      "fabricante":input("digite o fabricante: "),
-      "modelo":input("digite o modelo do equipamento: "),
-      "data":input("digite a data de instalação: "),
-      "status":input("digite o status do equipamento: ")
-   }
-   usina=int(input("digite o id da usina vinculada: "))
-   if usina  not in usinas:
-         print("usina não encontrada!")
-         return   
 
-   print("equipamento cadastrado!")
+
+def carregar_json(caminho):
+    if not os.path.exists(caminho):
+        return []
+    try:
+        with open(caminho, "r", encoding="utf-8") as f:
+            dados = json.load(f)
+            return dados if isinstance(dados, list) else []
+    except Exception as e:
+        print(f"Erro ao carregar {caminho}: {e}")
+        return []
+
+
+def salvar_equipamentos(equipamentos):
+    try:
+        os.makedirs(os.path.dirname(caminho_equipamentos), exist_ok=True)
+        with open(caminho_equipamentos, "w", encoding="utf-8") as f:
+            json.dump(equipamentos, f, indent=4, ensure_ascii=False)
+    except Exception as e:
+        print(f"Erro ao salvar equipamentos: {e}")
+
+
+
+def registrar_dados_operacionais():
+    usinas = carregar_json(caminho_usinas)
+    if not usinas:
+        print("Nenhuma usina cadastrada. Cadastre uma usina primeiro.")
+        return
+
+    print("\n==== DADOS OPERACIONAIS ====")
+    print("Usinas disponíveis:")
+    for u in usinas:
+        print(f"  ID {u['id']} - {u['nome']} ({u['cidade']}/{u['estado']})")
+
+    try:
+        id_usina = int(input("\nID da usina: "))
+    except ValueError:
+        print("ID invalido.")
+        return
+
+    usina = next((u for u in usinas if u["id"] == id_usina), None)
+    if not usina:
+        print("Usina nao encontrada.")
+        return
+
+    try:
+        temperatura = float(input("Temperatura atual (C): "))
+        geracao     = float(input("Geracao atual (kWh): "))
+        if geracao < 0:
+            print("Geracao nao pode ser negativa.")
+            return
+        desempenho = int(input("Desempenho (0 a 100): "))
+        if not (0 <= desempenho <= 100):
+            print("Desempenho fora do intervalo.")
+            return
+    except ValueError:
+        print("Valor invalido.")
+        return
+
+    dados = {
+        "id_usina":    id_usina,
+        "nome_usina":  usina["nome"],
+        "temperatura": temperatura,
+        "geracao":     geracao,
+        "desempenho":  desempenho,
+    }
+
+    print(f"\nDados operacionais da usina '{usina['nome']}' registrados.")
+    return dados  
+
+
+
+def cadastrar_equipamento():
+    equipamentos = carregar_json(caminho_equipamentos)
+    usinas       = carregar_json(caminho_usinas)
+
+    if not usinas:
+        print("Nenhuma usina cadastrada. Cadastre uma usina primeiro.")
+        return
+
+    print("\n==== CADASTRO DE EQUIPAMENTO ====")
+
+    try:
+        id_eq = int(input("ID do equipamento: "))
+    except ValueError:
+        print("ID invalido.")
+        return
+
+    if any(e["id"] == id_eq for e in equipamentos):
+        print("Equipamento ja cadastrado.")
+        return
+
+    nome      = input("Nome do equipamento: ").strip()
+    tipo      = input("Tipo do equipamento: ").strip()
+    fabricante = input("Fabricante: ").strip()
+    modelo    = input("Modelo: ").strip()
+    data      = input("Data de instalacao: ").strip()
+    status    = input("Status: ").upper().strip()
+
+    print("\nUsinas disponiveis:")
+    for u in usinas:
+        print(f"  ID {u['id']} - {u['nome']} ({u['cidade']}/{u['estado']})")
+
+    try:
+        id_usina = int(input("ID da usina vinculada: "))
+    except ValueError:
+        print("ID invalido.")
+        return
+
+    usina = next((u for u in usinas if u["id"] == id_usina), None)
+    if not usina:
+        print("Usina nao encontrada.")
+        return
+
+    equipamento = {
+        "id":          id_eq,
+        "nome":        nome,
+        "tipo":        tipo,
+        "fabricante":  fabricante,
+        "modelo":      modelo,
+        "data":        data,
+        "status":      status,
+        "id_usina":    id_usina,
+        "nome_usina":  usina["nome"],
+    }
+
+    equipamentos.append(equipamento)
+    salvar_equipamentos(equipamentos)
+    print(f"Equipamento '{nome}' cadastrado e vinculado a '{usina['nome']}'.")
 
 
 def visualizar_equipamentos():
-  if not equipamentos:
-  
-    print("nenhum equipamento cadastrado!")
-    return
-  for id , dados in equipamentos.items():
-    print(f"\n ID: {id} ")
+    equipamentos = carregar_json(caminho_equipamentos)
 
-  for chave, valor in dados:
-     print(f"{chave}: {valor}")
+    if not equipamentos:
+        print("Nenhum equipamento cadastrado.")
+        return
 
-while True:
-   print("====funções====")
-   print("[1]- cadastrar equipamentos" )
-   print("[2]- visualizar informações dos equipamentos cadastrados")
-   print("[3]- sair ")
-
-   funcao=int(input("escolha um número correspondente a uma função: "))
-
-   if funcao == 1 :
-      cadastro_equipamentos()
-   elif funcao == 2:
-      visualizar_equipamentos()
-   elif funcao ==3:
-      print("você saiu")
-      break
-   else:
-      print("opção inválida")
-
-dados_operacionais=[]
-
-while True:
-
- id_usina=int(input("digite o ID da usina:  "))
- dados_operacionais.append(id_usina)
-
- temp_usina=float(input("digite a temperatura atual: "))
- dados_operacionais.append(temp_usina)
-
- gera_usina=float(input("geração: "))
- dados_operacionais.append(gera_usina)
- 
- if gera_usina < 0:
-   
-   print("erro")
-   break
-
- desenpenho=int(input("desenpenho(0 a 100): "))
- dados_operacionais.append(desenpenho)
+    print("\n==== EQUIPAMENTOS CADASTRADOS ====")
+    for eq in equipamentos:
+        print(f"\n  ID:         {eq['id']}")
+        print(f"  Nome:       {eq['nome']}")
+        print(f"  Tipo:       {eq['tipo']}")
+        print(f"  Fabricante: {eq['fabricante']}")
+        print(f"  Modelo:     {eq['modelo']}")
+        print(f"  Data:       {eq['data']}")
+        print(f"  Status:     {eq['status']}")
+        print(f"  Usina:      {eq['nome_usina']} (ID {eq['id_usina']})")
 
 
 
+def menu_equipamentos():
+    while True:
+        print("\n==== EQUIPAMENTOS ====")
+        print("[1] Registrar dados operacionais da usina")
+        print("[2] Cadastrar equipamento")
+        print("[3] Visualizar equipamentos")
+        print("[4] Sair")
+
+        try:
+            opcao = int(input("Opcao: "))
+        except ValueError:
+            print("Opcao invalida.")
+            continue
+
+        if opcao == 1:
+            registrar_dados_operacionais()
+        elif opcao == 2:
+            cadastrar_equipamento()
+        elif opcao == 3:
+            visualizar_equipamentos()
+        elif opcao == 4:
+            print("Saindo.")
+            break
+        else:
+            print("Opcao invalida.")
+
+
+if __name__ == "__main__":
+    menu_equipamentos()
