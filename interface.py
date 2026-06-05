@@ -79,3 +79,5 @@ def menu_equipamentos():
 
 if __name__ == "__main__":
     exibir_menu_principal()
+
+# TESTE_GIT
