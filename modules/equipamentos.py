@@ -29,6 +29,7 @@ def cadastro_equipamentos():
 
 def visualizar_equipamentos():
   if not equipamentos:
+  
     print("nenhum equipamento cadastrado!")
     return
   for id , dados in equipamentos.items():
