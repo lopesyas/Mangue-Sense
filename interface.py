@@ -1,5 +1,5 @@
 from modules.usinas import cadastrar_usina, listar_usinas, editar_usina, excluir_usina
-from modules.equipamentos import cadastro_equipamentos, visualizar_equipamentos
+from modules.equipamentos import cadastrar_equipamento, visualizar_equipamentos
 
 
 def exibir_menu_principal():
@@ -64,7 +64,7 @@ def menu_equipamentos():
         escolha = input("\nEscolha: ").strip()
 
         if escolha == "1":
-            cadastro_equipamentos()
+            cadastrar_equipamento()
         elif escolha == "2":
             visualizar_equipamentos()
         elif escolha == "3":

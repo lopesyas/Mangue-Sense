@@ -15,7 +15,12 @@ def carregar_json(caminho):
     try:
         with open(caminho, "r", encoding="utf-8") as f:
             dados = json.load(f)
-            return dados if isinstance(dados, list) else []
+            # Normaliza: se o JSON contém um único objeto (dict), transforma em lista [dict]
+            if isinstance(dados, list):
+                return dados
+            if isinstance(dados, dict):
+                return [dados]
+            return []
     except Exception as e:
         print(f"Erro ao carregar {caminho}: {e}")
         return []
@@ -191,10 +196,10 @@ if __name__ == "__main__":
 
 
 # Compatibilidade com outras partes da interface que importam
+# Nota: unificamos a API para `cadastrar_equipamento` (singular).
+# Se outras partes do código ainda importarem o nome antigo,
+# mantemos um alias histórico com o nome anterior para compatibilidade.
 def cadastro_equipamentos():
-    """Alias compatível com nomes usados por `interface.py`.
-    Redireciona para `cadastrar_equipamento()`.
-    """
     return cadastrar_equipamento()
 
 
