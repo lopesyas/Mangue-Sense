@@ -233,5 +233,7 @@ def excluir_usina():
         print("Exclusão cancelada.")
 
 
-listar_usinas()
+if __name__ == "__main__":
+    # Ao executar este módulo diretamente, mostra a lista (útil para debug).
+    listar_usinas()
 

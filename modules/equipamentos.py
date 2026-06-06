@@ -188,3 +188,27 @@ def menu_equipamentos():
 
 if __name__ == "__main__":
     menu_equipamentos()
+
+
+# Compatibilidade com outras partes da interface que importam
+def cadastro_equipamentos():
+    """Alias compatível com nomes usados por `interface.py`.
+    Redireciona para `cadastrar_equipamento()`.
+    """
+    return cadastrar_equipamento()
+
+
+def editar_equipamento():
+    """Stub de edição de equipamento — em desenvolvimento.
+    Mantém API para importação e evita ImportError enquanto a feature não
+    estiver implementada pelo responsável.
+    """
+    print("\n⚠️ Função de editar equipamento em desenvolvimento.")
+    return None
+
+
+def excluir_equipamento():
+    """Stub de exclusão de equipamento — em desenvolvimento.
+    """
+    print("\n⚠️ Função de excluir equipamento em desenvolvimento.")
+    return None
