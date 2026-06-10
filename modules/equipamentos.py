@@ -78,6 +78,11 @@ def registrar_dados_operacionais():
     print(f"\nDados operacionais da usina '{usina['nome']}' registrados.")
     return dados  
 
+def gerar_proximo_id():
+    equipamentos = carregar_json(caminho_equipamentos)
+    if not equipamentos:
+        return 1
+    return max(e["id"] for e in equipamentos) + 1
 
 
 def cadastrar_equipamento():
@@ -90,11 +95,8 @@ def cadastrar_equipamento():
 
     print("\n==== CADASTRO DE EQUIPAMENTO ====")
 
-    try:
-        id_eq = int(input("ID do equipamento: "))
-    except ValueError:
-        print("ID invalido.")
-        return
+    id_eq = gerar_proximo_id()
+    print(f"ID gerado automaticamemente: {id_eq}")
 
     if any(e["id"] == id_eq for e in equipamentos):
         print("Equipamento ja cadastrado.")
