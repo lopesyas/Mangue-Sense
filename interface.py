@@ -1,132 +1,83 @@
-# ==========================
-# MANGUE SENSE
-# Interface do Sistema
-# ==========================
+from modules.usinas import cadastrar_usina, listar_usinas, editar_usina, excluir_usina
+from modules.equipamentos import cadastrar_equipamento, visualizar_equipamentos
 
 
-def sucesso():
-    print("\n Operação realizada com sucesso!")
+def exibir_menu_principal():
+    while True:
+        print("\n================================")
+        print("          MANGUE SENSE")
+        print("================================")
+        print("1 - Gerenciar Usinas")
+        print("2 - Gerenciar Equipamentos")
+        print("3 - Visualizar Alertas")
+        print("4 - Sair")
 
+        opcao = input("\nEscolha uma opção: ").strip()
 
-def erro():
-    print("\n Ocorreu um erro.")
+        if opcao == "1":
+            menu_usinas()
+        elif opcao == "2":
+            menu_equipamentos()
+        elif opcao == "3":
+            print("\nNenhum alerta disponível.")
+        elif opcao == "4":
+            print("\nSistema encerrado.")
+            break
+        else:
+            print("\nOpção inválida. Tente novamente.")
 
-
-def campo_invalido():
-    print("\n Entrada inválida. Tente novamente.")
-
-
-# ------------------------
-# MENU USINAS
-# ------------------------
 
 def menu_usinas():
-
     while True:
-
         print("\n========== USINAS ==========")
-
         print("1 - Cadastrar Usina")
         print("2 - Listar Usinas")
         print("3 - Editar Usina")
         print("4 - Excluir Usina")
         print("5 - Voltar")
 
-        escolha = input("\nEscolha: ")
+        escolha = input("\nEscolha: ").strip()
 
         if escolha == "1":
-            print("Cadastro de usina")
-            sucesso()
-
+            cadastrar_usina()
         elif escolha == "2":
-            print("Lista de usinas")
-            sucesso()
-
+            listar_usinas()
         elif escolha == "3":
-            print("Editar usina")
-            sucesso()
-
+            editar_usina()
         elif escolha == "4":
-            print("Excluir usina")
-            sucesso()
-
+            excluir_usina()
         elif escolha == "5":
             break
-
         else:
-            campo_invalido()
+            print("\nEntrada inválida. Tente novamente.")
 
-
-# ------------------------
-# MENU EQUIPAMENTOS
-# ------------------------
 
 def menu_equipamentos():
-
     while True:
-
         print("\n======= EQUIPAMENTOS =======")
-
         print("1 - Cadastrar Equipamento")
         print("2 - Listar Equipamentos")
         print("3 - Editar Equipamento")
         print("4 - Excluir Equipamento")
         print("5 - Voltar")
 
-        escolha = input("\nEscolha: ")
+        escolha = input("\nEscolha: ").strip()
 
         if escolha == "1":
-            print("Cadastro equipamento")
-            sucesso()
-
+            cadastrar_equipamento()
         elif escolha == "2":
-            print("Lista equipamentos")
-            sucesso()
-
+            visualizar_equipamentos()
         elif escolha == "3":
-            print("Editar equipamento")
-            sucesso()
-
+            print("\nFunção de editar equipamento ainda não implementada.")
         elif escolha == "4":
-            print("Excluir equipamento")
-            sucesso()
-
+            print("\nFunção de excluir equipamento ainda não implementada.")
         elif escolha == "5":
             break
-
         else:
-            campo_invalido()
+            print("\nEntrada inválida. Tente novamente.")
 
 
-# ------------------------
-# MENU PRINCIPAL
-# ------------------------
+if __name__ == "__main__":
+    exibir_menu_principal()
 
-while True:
-
-    print("\n================================")
-    print("          MANGUE SENSE")
-    print("================================")
-
-    print("1 - Gerenciar Usinas")
-    print("2 - Gerenciar Equipamentos")
-    print("3 - Visualizar Alertas")
-    print("4 - Sair")
-
-    opcao = input("\nEscolha uma opção: ")
-
-    if opcao == "1":
-        menu_usinas()
-
-    elif opcao == "2":
-        menu_equipamentos()
-
-    elif opcao == "3":
-        print("\nNenhum alerta disponível")
-
-    elif opcao == "4":
-        print("\nSistema encerrado.")
-        break
-
-    else:
-        campo_invalido()
+# TESTE_GIT

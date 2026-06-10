@@ -16,6 +16,7 @@ O **Mangue-Sense** é um sistema modular em linha de comando desenvolvido em Pyt
 * **Cadastro de Dispositivos:** Registro de ID do equipamento, nome, tipo, fabricante, modelo, data de instalação, status operacional e vinculação direta com a usina correspondente.
 * **Visualização Completa:** Exibição estruturada com o status e a usina à qual cada equipamento está vinculado.
 * **Placeholders Integrados:** Menus e rotas de código prontos para as futuras funcionalidades de edição e exclusão de equipamentos.
+* **API unificada:** Fiz a unificação do nome da função de cadastro para `cadastrar_equipamento()` e mantive um alias compatível para evitar que imports antigos quebrem.
 
 ### 💾 Persistência de Dados & Arquitetura
 * **Banco de Dados JSON:** Todos os registros são salvos automaticamente de forma persistente nas tabelas de arquivos em `data/usinas.json` e `data/equipamentos.json`.
@@ -34,10 +35,11 @@ Mangue-Sense/
 │   ├── usinas.json         # Base de dados persistente de usinas
 │   └── equipamentos.json   # Base de dados persistente de equipamentos
 └── modules/
-    ├── interface.py        # Orquestração de menus e navegação do console
-    ├── usinas.py           # Operações e regras de negócio de usinas
-    ├── equipamentos.py     # Operações e regras de negócio de equipamentos
-    └── validacoes.py       # Funções de validação de dados e vínculos
+  ├── interface.py        # Orquestração de menus e navegação do console
+  ├── usinas.py           # Operações e regras de negócio de usinas
+  ├── equipamentos.py     # Operações e regras de negócio de equipamentos (API unificada)
+  ├── json_manager.py     # Utilitários para carregar/salvar JSON (`load_json`, `save_json`)
+  └── validacoes.py       # Validações e wrappers que reutilizam `usinas.py`
 ```
 
 ---
@@ -54,6 +56,14 @@ Mangue-Sense/
    python3 main.py
    ```
 3. Navegue utilizando as opções numéricas apresentadas no console interativo.
+
+Observações rápidas sobre mudanças recentes:
+- Fiz a normalização do carregamento de JSON em `modules/equipamentos.py` para aceitar um único objeto (dict) transformando-o em lista `[dict]`, evitando perda de dados quando o arquivo contém um único registro.
+- Adicionei `modules/json_manager.py` com helpers para centralizar IO de JSON (`load_json` / `save_json`).
+- Refatorei `modules/validacoes.py` para remover código interativo duplicado e criei wrappers que reutilizam `modules/usinas.py` para edição/exclusão.
+- Corrigi um valor inválido em `data/usinas.json` (campo `Data de instalação`) para uma data plausível.
+
+Se quiser, eu posso: organizar as chaves internas para um único padrão (ex.: snake_case em inglês), adicionar testes `pytest` ou rodar um formatador como `black` para padronizar o estilo.
 
 ---
 

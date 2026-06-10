@@ -15,7 +15,12 @@ def carregar_json(caminho):
     try:
         with open(caminho, "r", encoding="utf-8") as f:
             dados = json.load(f)
-            return dados if isinstance(dados, list) else []
+            # Normaliza: se o JSON contém um único objeto (dict), transforma em lista [dict]
+            if isinstance(dados, list):
+                return dados
+            if isinstance(dados, dict):
+                return [dados]
+            return []
     except Exception as e:
         print(f"Erro ao carregar {caminho}: {e}")
         return []
@@ -190,3 +195,27 @@ def menu_equipamentos():
 
 if __name__ == "__main__":
     menu_equipamentos()
+
+
+# Compatibilidade com outras partes da interface que importam
+# Nota: unificamos a API para `cadastrar_equipamento` (singular).
+# Se outras partes do código ainda importarem o nome antigo,
+# mantemos um alias histórico com o nome anterior para compatibilidade.
+def cadastro_equipamentos():
+    return cadastrar_equipamento()
+
+
+def editar_equipamento():
+    """Stub de edição de equipamento — em desenvolvimento.
+    Mantém API para importação e evita ImportError enquanto a feature não
+    estiver implementada pelo responsável.
+    """
+    print("\n⚠️ Função de editar equipamento em desenvolvimento.")
+    return None
+
+
+def excluir_equipamento():
+    """Stub de exclusão de equipamento — em desenvolvimento.
+    """
+    print("\n⚠️ Função de excluir equipamento em desenvolvimento.")
+    return None

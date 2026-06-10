@@ -7,7 +7,7 @@
         "UF da usina": "PE",
         "Potência da usina (kWp)": 500.0,
         "Quantidade de painéis": 1200,
-        "Data de instalação": "ativa",
+        "Data de instalação": "01/01/2025",
         "Status da usina": "ATIVA",
         "id": 1,
         "nome": "Usina solar recife norte ",
@@ -15,5 +15,22 @@
         "cidade": "Recife",
         "estado": "PE",
         "potencia": 500.0
+    },
+    {
+        "ID da usina": 3,
+        "Nome da usina": "Norte",
+        "Empresa responsável pela usina": "Absolar",
+        "Cidade da usina": "Paulista",
+        "UF da usina": "PE",
+        "Potência da usina (kWp)": 7892.0,
+        "Quantidade de painéis": 3,
+        "Data de instalação": "12/12/2025",
+        "Status da usina": "CRÍTICO",
+        "id": 3,
+        "nome": "Norte",
+        "empresa": "Absolar",
+        "cidade": "Paulista",
+        "estado": "PE",
+        "potencia": 7892.0
     }
 ]
