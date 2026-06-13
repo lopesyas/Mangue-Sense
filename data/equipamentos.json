@@ -38,5 +38,15 @@
         "status": "ATIVO",
         "id_usina": 3,
         "nome_usina": "Usina Mangue Seco"
+    },
+    {
+        "id": 5,
+        "nome": "Inversor",
+        "tipo": "fotovotaico",
+        "fabricante": "Dyness",
+        "modelo": "L45FD",
+        "status": "ATIVO",
+        "id_usina": 4,
+        "nome_usina": "Usina Sul"
     }
 ]

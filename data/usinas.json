@@ -40,5 +40,19 @@
         "score_geracao": 38,
         "status_risco": "CRÍTICO",
         "dados_operacionais": []
+    },
+    {
+        "id": 4,
+        "nome": "Usina Sul",
+        "empresa": "O&M",
+        "cidade": "Recife",
+        "estado": "PE",
+        "potencia": 569.0,
+        "qtd_paineis": 3,
+        "data_instalacao": "12/06/2026",
+        "status_usina": "ATIVA",
+        "score_geracao": 100,
+        "status_risco": "OK",
+        "dados_operacionais": []
     }
 ]
