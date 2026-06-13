@@ -1,5 +1,6 @@
 from modules.usinas import cadastrar_usina, listar_usinas, editar_usina, excluir_usina
 from modules.equipamentos import cadastrar_equipamento, visualizar_equipamentos, editar_equipamento, excluir_equipamento
+from modules.calculo import testar_calculos
 
 
 def exibir_menu_principal():
@@ -10,7 +11,8 @@ def exibir_menu_principal():
         print("1 - Gerenciar Usinas")
         print("2 - Gerenciar Equipamentos")
         print("3 - Visualizar Alertas")
-        print("4 - Sair")
+        print("4 - Executar Testes de Cálculo")
+        print("5 - Sair")
 
         opcao = input("\nEscolha uma opção: ").strip()
 
@@ -21,6 +23,9 @@ def exibir_menu_principal():
         elif opcao == "3":
             print("\nNenhum alerta disponível.")
         elif opcao == "4":
+            print("\n==== TESTES DE CÁLCULO ====")
+            testar_calculos()
+        elif opcao == "5":
             print("\nSistema encerrado.")
             break
         else:

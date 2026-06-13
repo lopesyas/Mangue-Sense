@@ -1,12 +1,42 @@
 [
     {
         "id": 1,
-        "nome": "placasolar",
-        "tipo": "r23",
-        "fabricante": "ekdr",
-        "modelo": "sfd,el",
-        "status": "RDNUNF",
+        "nome": "Inversor Central A1",
+        "tipo": "Inversor",
+        "fabricante": "Fronius",
+        "modelo": "Symo 20.0-3-M",
+        "status": "ATIVO",
         "id_usina": 1,
         "nome_usina": "Usina Solar Recife Norte"
+    },
+    {
+        "id": 2,
+        "nome": "Painel Fotovoltaico B7",
+        "tipo": "Painel Solar",
+        "fabricante": "Canadian Solar",
+        "modelo": "CS6R-410MS",
+        "status": "ATIVO",
+        "id_usina": 1,
+        "nome_usina": "Usina Solar Recife Norte"
+    },
+    {
+        "id": 3,
+        "nome": "Inversor String 02",
+        "tipo": "Inversor",
+        "fabricante": "SMA",
+        "modelo": "Sunny Boy 5.0",
+        "status": "MANUTENÇÃO",
+        "id_usina": 2,
+        "nome_usina": "Usina Capibaribe Sul"
+    },
+    {
+        "id": 4,
+        "nome": "Sensor Térmico T-01",
+        "tipo": "Sensor",
+        "fabricante": "Fluke",
+        "modelo": "Ti400",
+        "status": "ATIVO",
+        "id_usina": 3,
+        "nome_usina": "Usina Mangue Seco"
     }
 ]
