@@ -206,16 +206,83 @@ def cadastro_equipamentos():
 
 
 def editar_equipamento():
-    """Stub de edição de equipamento — em desenvolvimento.
-    Mantém API para importação e evita ImportError enquanto a feature não
-    estiver implementada pelo responsável.
-    """
-    print("\n⚠️ Função de editar equipamento em desenvolvimento.")
-    return None
+    """Edita um equipamento existente buscando pelo ID."""
+    equipamentos = carregar_json(caminho_equipamentos)
+
+    if not equipamentos:
+        print("Nenhum equipamento cadastrado.")
+        return
+
+    print("\n==== EDITAR EQUIPAMENTO ====")
+    visualizar_equipamentos()
+
+    id_busca = input("\nDigite o ID do equipamento que deseja editar: ").strip()
+
+    if not id_busca.isdigit():
+        print("ID invalido. Digite apenas numeros.")
+        return
+
+    equipamento = next((e for e in equipamentos if str(e["id"]) == id_busca), None)
+    if not equipamento:
+        print("Equipamento nao encontrado.")
+        return
+
+    print(f"\nEditando: {equipamento['nome']} (Status atual: {equipamento['status']})")
+    print("Deixe em branco para manter o valor atual.\n")
+
+    novo_nome = input(f"Nome [{equipamento['nome']}]: ").strip()
+    novo_tipo = input(f"Tipo [{equipamento['tipo']}]: ").strip()
+    novo_fabricante = input(f"Fabricante [{equipamento['fabricante']}]: ").strip()
+    novo_modelo = input(f"Modelo [{equipamento['modelo']}]: ").strip()
+    nova_data = input(f"Data de instalacao [{equipamento['data']}]: ").strip()
+    novo_status = input(f"Status [{equipamento['status']}]: ").strip().upper()
+
+    # Atualiza apenas os campos preenchidos
+    if novo_nome:
+        equipamento["nome"] = novo_nome
+    if novo_tipo:
+        equipamento["tipo"] = novo_tipo
+    if novo_fabricante:
+        equipamento["fabricante"] = novo_fabricante
+    if novo_modelo:
+        equipamento["modelo"] = novo_modelo
+    if nova_data:
+        equipamento["data"] = nova_data
+    if novo_status:
+        equipamento["status"] = novo_status
+
+    salvar_equipamentos(equipamentos)
+    print(f"Equipamento '{equipamento['nome']}' atualizado com sucesso!")
 
 
 def excluir_equipamento():
-    """Stub de exclusão de equipamento — em desenvolvimento.
-    """
-    print("\n⚠️ Função de excluir equipamento em desenvolvimento.")
-    return None
+    """Exclui um equipamento pelo ID, com confirmacao de seguranca."""
+    equipamentos = carregar_json(caminho_equipamentos)
+
+    if not equipamentos:
+        print("Nenhum equipamento cadastrado.")
+        return
+
+    print("\n==== EXCLUIR EQUIPAMENTO ====")
+    visualizar_equipamentos()
+
+    id_busca = input("\nDigite o ID do equipamento que deseja excluir: ").strip()
+
+    if not id_busca.isdigit():
+        print("ID invalido. Digite apenas numeros.")
+        return
+
+    equipamento = next((e for e in equipamentos if str(e["id"]) == id_busca), None)
+    if not equipamento:
+        print("Equipamento nao encontrado.")
+        return
+
+    print(f"\nEquipamento encontrado: {equipamento['nome']} (ID {equipamento['id']}) — Usina: {equipamento['nome_usina']}")
+    confirmar = input("Tem certeza que deseja excluir? (S/N): ").strip().upper()
+
+    if confirmar == "S":
+        equipamentos_atualizados = [e for e in equipamentos if str(e["id"]) != id_busca]
+        salvar_equipamentos(equipamentos_atualizados)
+        print(f"Equipamento '{equipamento['nome']}' excluido com sucesso!")
+    else:
+        print("Operacao cancelada.")
