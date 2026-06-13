@@ -107,12 +107,11 @@ def cadastrar_equipamento():
         print("Equipamento ja cadastrado.")
         return
 
-    nome      = input("Nome do equipamento: ").strip()
-    tipo      = input("Tipo do equipamento: ").strip()
+    nome       = input("Nome do equipamento: ").strip()
+    tipo       = input("Tipo do equipamento: ").strip()
     fabricante = input("Fabricante: ").strip()
-    modelo    = input("Modelo: ").strip()
-    data      = input("Data de instalacao: ").strip()
-    status    = input("Status: ").upper().strip()
+    modelo     = input("Modelo: ").strip()
+    status     = input("Status: ").upper().strip()
 
     print("\nUsinas disponiveis:")
     for u in usinas:
@@ -130,15 +129,14 @@ def cadastrar_equipamento():
         return
 
     equipamento = {
-        "id":          id_eq,
-        "nome":        nome,
-        "tipo":        tipo,
-        "fabricante":  fabricante,
-        "modelo":      modelo,
-        "data":        data,
-        "status":      status,
-        "id_usina":    id_usina,
-        "nome_usina":  usina["nome"],
+        "id":         id_eq,
+        "nome":       nome,
+        "tipo":       tipo,
+        "fabricante": fabricante,
+        "modelo":     modelo,
+        "status":     status,
+        "id_usina":   id_usina,
+        "nome_usina": usina["nome"],
     }
 
     equipamentos.append(equipamento)
@@ -160,7 +158,6 @@ def visualizar_equipamentos():
         print(f"  Tipo:       {eq['tipo']}")
         print(f"  Fabricante: {eq['fabricante']}")
         print(f"  Modelo:     {eq['modelo']}")
-        print(f"  Data:       {eq['data']}")
         print(f"  Status:     {eq['status']}")
         print(f"  Usina:      {eq['nome_usina']} (ID {eq['id_usina']})")
 
@@ -230,26 +227,18 @@ def editar_equipamento():
     print(f"\nEditando: {equipamento['nome']} (Status atual: {equipamento['status']})")
     print("Deixe em branco para manter o valor atual.\n")
 
-    novo_nome = input(f"Nome [{equipamento['nome']}]: ").strip()
-    novo_tipo = input(f"Tipo [{equipamento['tipo']}]: ").strip()
+    novo_nome       = input(f"Nome [{equipamento['nome']}]: ").strip()
+    novo_tipo       = input(f"Tipo [{equipamento['tipo']}]: ").strip()
     novo_fabricante = input(f"Fabricante [{equipamento['fabricante']}]: ").strip()
-    novo_modelo = input(f"Modelo [{equipamento['modelo']}]: ").strip()
-    nova_data = input(f"Data de instalacao [{equipamento['data']}]: ").strip()
-    novo_status = input(f"Status [{equipamento['status']}]: ").strip().upper()
+    novo_modelo     = input(f"Modelo [{equipamento['modelo']}]: ").strip()
+    novo_status     = input(f"Status [{equipamento['status']}]: ").strip().upper()
 
     # Atualiza apenas os campos preenchidos
-    if novo_nome:
-        equipamento["nome"] = novo_nome
-    if novo_tipo:
-        equipamento["tipo"] = novo_tipo
-    if novo_fabricante:
-        equipamento["fabricante"] = novo_fabricante
-    if novo_modelo:
-        equipamento["modelo"] = novo_modelo
-    if nova_data:
-        equipamento["data"] = nova_data
-    if novo_status:
-        equipamento["status"] = novo_status
+    if novo_nome:       equipamento["nome"]       = novo_nome
+    if novo_tipo:       equipamento["tipo"]       = novo_tipo
+    if novo_fabricante: equipamento["fabricante"] = novo_fabricante
+    if novo_modelo:     equipamento["modelo"]     = novo_modelo
+    if novo_status:     equipamento["status"]     = novo_status
 
     salvar_equipamentos(equipamentos)
     print(f"Equipamento '{equipamento['nome']}' atualizado com sucesso!")

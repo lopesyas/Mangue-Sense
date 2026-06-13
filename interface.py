@@ -1,5 +1,5 @@
 from modules.usinas import cadastrar_usina, listar_usinas, editar_usina, excluir_usina
-from modules.equipamentos import cadastrar_equipamento, visualizar_equipamentos
+from modules.equipamentos import cadastrar_equipamento, visualizar_equipamentos, editar_equipamento, excluir_equipamento
 
 
 def exibir_menu_principal():
@@ -68,9 +68,9 @@ def menu_equipamentos():
         elif escolha == "2":
             visualizar_equipamentos()
         elif escolha == "3":
-            print("\nFunção de editar equipamento ainda não implementada.")
+            editar_equipamento()
         elif escolha == "4":
-            print("\nFunção de excluir equipamento ainda não implementada.")
+            excluir_equipamento()
         elif escolha == "5":
             break
         else:
